@@ -1,0 +1,13 @@
+{
+    "author": [
+        "xQsme",
+        "Yvtq8K3n"
+    ],
+    "description": "Listens for specific keywords and does actions accordingly",
+    "install_msg": "Ez Altes Besta, not even try.",
+    "permissions": [],
+    "requirements": [],
+    "short": "Kekeres crl.",
+    "type": "COG",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}
