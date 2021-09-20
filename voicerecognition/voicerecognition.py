@@ -1,5 +1,9 @@
 from redbot.core import commands
 
+async def changeSelfDeafen(ctx, state):
+    channel = ctx.voice_client.channel
+    await ctx.guild.change_voice_state(channel=channel, self_deaf=state)
+
 class VoiceRecognition(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -24,8 +28,10 @@ class VoiceRecognition(commands.Cog):
             author = ctx.message.author
             channel = author.voice.channel
             await channel.connect()
+            await changeSelfDeafen(ctx, False)
             await ctx.send("Voice recognition enabled.")
         async def success():
+            await changeSelfDeafen(ctx, self.active)
             self.active = not self.active
             await ctx.send("Voice recognition enabled." if self.active else "Voice recognition disabled.")
         await self.voiceMiddleware(ctx, error, success)
@@ -36,6 +42,7 @@ class VoiceRecognition(commands.Cog):
         async def error():
             await ctx.send("I am not in a voice channel.")
         async def success():
+            await changeSelfDeafen(ctx, True)
             await ctx.voice_client.disconnect()
         await self.voiceMiddleware(ctx, error, success)
         
